@@ -6,11 +6,11 @@ import models.User;
 import threads.GoldPriceThread;
 import threads.OilPriceThread;
 import threads.SilverPriceThread;
+import util.DateTimeUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
@@ -37,9 +37,8 @@ public class TradeServiceImplement implements TradeService {
         }
 
         int transactionSize = transactions.size();
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedNow = now.format(formatter);
+        LocalDateTime now = DateTimeUtil.getCurrentDateTime();
+        String formattedNow = DateTimeUtil.formateDate(now);
 
         Transaction newTransaction = new Transaction(transactionSize + 1, formattedNow, currentPrice, commodityID, sessionUser.getId(), quantity);
 
